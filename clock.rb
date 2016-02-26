@@ -15,7 +15,7 @@ class Clock
   end
 
   def to_s
-    sprintf("%02d:%02d", hour, minute)
+    format('%02d:%02d', hour, minute)
   end
 
   def +(minutes_to_add)
@@ -27,7 +27,7 @@ class Clock
   end
 
   def ==(other)
-    self.in_minutes == other.in_minutes
+    in_minutes == other.in_minutes
   end
 
   def in_minutes
