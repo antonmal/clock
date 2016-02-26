@@ -1,6 +1,9 @@
 class Clock
   attr_accessor :hour, :minute
 
+  HOURS_IN_DAY = 24
+  MINUTES_IN_HOUR = 60
+
   def initialize(hour = 0, minute = 0)
     @hour = hour.to_i
     @minute = minute.to_i
@@ -28,13 +31,13 @@ class Clock
   end
 
   def in_minutes
-    hour * 60 + minute
+    hour * MINUTES_IN_HOUR + minute
   end
 
   private
 
   def normalize
-    @hour = in_minutes / 60 % 24
-    @minute = in_minutes % 60
+    @hour = in_minutes / MINUTES_IN_HOUR % HOURS_IN_DAY
+    @minute = in_minutes % MINUTES_IN_HOUR
   end
 end
