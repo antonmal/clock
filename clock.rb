@@ -1,9 +1,10 @@
 class Clock
   attr_accessor :hour, :minute
 
-  def initialize(hour, minute = 0)
-    @hour = hour
-    @minute = minute
+  def initialize(hour = 0, minute = 0)
+    @hour = hour.to_i
+    @minute = minute.to_i
+    normalize
   end
 
   class << Clock
@@ -14,25 +15,26 @@ class Clock
     sprintf("%02d:%02d", hour, minute)
   end
 
-  def +(minutes_added)
-    new_hour = hour + minutes_added / 60
-    new_minute = minute + minutes_added % 60
-    new_hour += 1 if new_minute >= 60
-    new_hour = new_hour % 24
-    new_minute = new_minute % 60
-    Clock.new(new_hour, new_minute)
+  def +(minutes_to_add)
+    Clock.new(hour, minute + minutes_to_add)
   end
 
-  def -(minutes_substracted)
-    new_hour = hour - minutes_substracted / 60
-    new_minute = minute - minutes_substracted % 60
-    new_hour -= 1 if new_minute < 0
-    new_hour = new_hour % 24
-    new_minute = new_minute % 60
-    Clock.new(new_hour, new_minute)
+  def -(minutes_to_substract)
+    Clock.new(hour, minute - minutes_to_substract)
   end
 
   def ==(other)
-    self.hour == other.hour && self.minute == other.minute
+    self.in_minutes == other.in_minutes
+  end
+
+  private
+
+  def normalize
+    @hour = in_minutes / 60 % 24
+    @minute = in_minutes % 60
+  end
+
+  def in_minutes
+    hour * 60 + minute
   end
 end
