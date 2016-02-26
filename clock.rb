@@ -1,5 +1,3 @@
-require 'pry'
-
 class Clock
   attr_accessor :hour, :minute
 
@@ -8,8 +6,8 @@ class Clock
     @minute = minute
   end
 
-  def self.at(hour, minute = 0)
-    Clock.new(hour, minute)
+  class << Clock
+    alias_method :at, :new
   end
 
   def to_s
