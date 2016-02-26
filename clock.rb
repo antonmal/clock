@@ -27,14 +27,14 @@ class Clock
     self.in_minutes == other.in_minutes
   end
 
+  def in_minutes
+    hour * 60 + minute
+  end
+
   private
 
   def normalize
     @hour = in_minutes / 60 % 24
     @minute = in_minutes % 60
-  end
-
-  def in_minutes
-    hour * 60 + minute
   end
 end
