@@ -1,17 +1,15 @@
 require 'pry'
 
 class Clock
-  def self.at(hour, minute = 0)
-    ClockTime.new(hour, minute)
-  end
-end
-
-class ClockTime
   attr_accessor :hour, :minute
 
   def initialize(hour, minute = 0)
     @hour = hour
     @minute = minute
+  end
+
+  def self.at(hour, minute = 0)
+    Clock.new(hour, minute)
   end
 
   def to_s
@@ -24,7 +22,7 @@ class ClockTime
     new_hour += 1 if new_minute >= 60
     new_hour = new_hour % 24
     new_minute = new_minute % 60
-    ClockTime.new(new_hour, new_minute)
+    Clock.new(new_hour, new_minute)
   end
 
   def -(minutes_substracted)
@@ -33,7 +31,7 @@ class ClockTime
     new_hour -= 1 if new_minute < 0
     new_hour = new_hour % 24
     new_minute = new_minute % 60
-    ClockTime.new(new_hour, new_minute)
+    Clock.new(new_hour, new_minute)
   end
 
   def ==(other)
